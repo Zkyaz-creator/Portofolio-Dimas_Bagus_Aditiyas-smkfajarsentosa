@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dimas Bagus Aditiyas | DBAT — Full-Stack Developer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Archivo Black (Ultra-bold Extended look), Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome & Devicon for accurate tech stack icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        carbon: '#070707',
+                        darkcard: '#111111',
+                        crimson: '#e50914',
+                        crimsonDark: '#99060d',
+                        offwhite: '#f2f2f2',
+                    },
+                    fontFamily: {
+                        display: ['"Archivo Black"', 'sans-serif'],
+                        syne: ['"Syne"', 'sans-serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --crimson: #e50914;
+        }
+
+        body {
+            background-color: #070707;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            selection-background-color: #e50914;
+            selection-color: #ffffff;
+        }
+
+        ::selection {
+            background: #e50914;
+            color: #fff;
+        }
+
+        /* Wide monument-like typography */
+        .font-wide {
+            font-family: 'Archivo Black', sans-serif;
+            letter-spacing: -0.03em;
+            transform: scaleX(1.06);
+            transform-origin: left center;
+            display: inline-block;
+        }
+
+        .font-wide-center {
+            font-family: 'Archivo Black', sans-serif;
+            letter-spacing: -0.02em;
+            transform: scaleX(1.08);
+            display: inline-block;
+        }
+
+        /* Hero Spotlight & Particles */
+        .hero-radial {
+            background: radial-gradient(circle at 50% 48%, rgba(185, 12, 20, 0.34) 0%, rgba(110, 6, 12, 0.14) 35%, rgba(7, 7, 7, 0.96) 70%, #070707 100%);
+        }
+
+        /* Hero Text Gradients */
+        .hero-title-top {
+            background: linear-gradient(90deg, #ffffff 0%, #ffffff 42%, #ff2a2a 65%, #e50914 85%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.7));
+        }
+
+        .hero-title-bottom {
+            background: linear-gradient(90deg, rgba(160, 75, 78, 0.55) 0%, rgba(190, 60, 65, 0.35) 50%, rgba(165, 85, 88, 0.65) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Infinite Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 22s linear infinite;
+        }
+
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Skill Icon Grayscale to Color with glow */
+        .skill-icon-item {
+            filter: grayscale(100%) opacity(0.45);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .skill-icon-item:hover {
+            filter: grayscale(0%) opacity(1);
+            transform: translateY(-5px) scale(1.12);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070707;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e50914;
+        }
+
+        /* 3D Certificate Carousel Styles */
+        .cert-stage {
+            perspective: 1400px;
+            position: relative;
+            height: 490px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .cert-card {
+            position: absolute;
+            width: 350px;
+            max-width: 86vw;
+            height: 430px;
+            background: linear-gradient(160deg, #161616 0%, #0b0b0b 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 24px;
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+        }
+
+        .cert-card.active {
+            border-color: rgba(229, 9, 20, 0.55);
+            box-shadow: 0 25px 60px -10px rgba(229, 9, 20, 0.22), 0 0 25px rgba(229, 9, 20, 0.12);
+        }
+
+        .cert-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e50914, transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cert-card.active::after {
+            opacity: 1;
+        }
+
+        /* Back to top white screen transition */
+        #page-Curtain {
+            pointer-events: none;
+            transition: transform 0.85s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        /* Subtle floating animation for particles */
+        @keyframes floatDot {
+            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.35; }
+            50% { transform: translateY(-18px) translateX(8px); opacity: 0.85; }
+        }
+
+        /* ==========================================
+           HERO POP-UP ENTRANCE ANIMATIONS
+        =========================================== */
+        @keyframes heroPhotoPopUp {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 140px, 0) scale(0.72);
+                filter: blur(10px) brightness(0.4);
+            }
+            65% {
+                opacity: 1;
+                transform: translate3d(0, -10px, 0) scale(1.03);
+                filter: blur(0px) brightness(1.06);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) scale(1);
+                filter: blur(0px) brightness(1);
+            }
+        }
+
+        @keyframes heroTextRevealLeft {
+            0% {
+                opacity: 0;
+                transform: translate3d(-70px, 35px, 0) scale(0.92);
+                filter: blur(8px);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        @keyframes heroTextRevealRight {
+            0% {
+                opacity: 0;
+                transform: translate3d(70px, 45px, 0) scale(0.92);
+                filter: blur(8px);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        @keyframes glowPulseIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.4);
+            }
+            70% {
+                opacity: 0.9;
+                transform: scale(1.15);
+            }
+            100% {
+                opacity: 0.65;
+                transform: scale(1);
+            }
+        }
+
+        .animate-photo-popup {
+            animation: heroPhotoPopUp 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+        }
+
+        .animate-text-top {
+            animation: heroTextRevealLeft 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+        }
+
+        .animate-text-bottom {
+            animation: heroTextRevealRight 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+        }
+
+        .animate-glow-popup {
+            animation: glowPulseIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+
+        /* Smooth bottom vignette mask on the portrait so it blends into the dark floor */
+        .portrait-mask {
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 78%, rgba(0,0,0,0) 100%);
+        }
+
+        /* Floating Pop-up Badge pulse */
+        @keyframes pulseRing {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
+        }
+        .pulse-crimson {
+            animation: pulseRing 2s infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-crimson selection:text-white">
+
+    <!-- Page Transition Overlay (Matches 0:46 scroll-to-top wipe in video) -->
+    <div id="page-curtain" class="fixed inset-0 bg-[#f2f2f2] z-[100] translate-y-full flex items-center justify-center overflow-hidden pointer-events-none transition-transform duration-700 ease-in-out">
+        <span class="font-wide-center text-[9.5vw] text-black/5 uppercase select-none whitespace-nowrap">DIMAS BAGUS ADITIYAS</span>
+    </div>
+
+    <!-- Hidden File Input so user on Android content:// can load their exact photo in 1 tap & save to browser -->
+    <input type="file" id="photo-file-input" accept="image/*" class="hidden" />
+
+    <!-- Bottom-left N Badge + Quick Photo / Replay Controls -->
+    <div class="fixed bottom-5 left-5 z-50 flex items-center space-x-2.5">
+        <div onclick="replayHeroPopUpAnimation()" class="w-9 h-9 rounded-full bg-[#141414] border border-white/15 flex items-center justify-center text-xs font-serif font-bold text-white/80 shadow-lg hover:border-crimson hover:text-white transition-all cursor-pointer" title="Klik untuk ulangi animasi Pop-Up">
+            N
+        </div>
+        <button id="change-photo-btn" onclick="document.getElementById('photo-file-input').click()" class="px-3.5 py-2 rounded-full bg-[#141414]/90 backdrop-blur-md border border-crimson/50 text-[10px] font-mono tracking-wider uppercase text-white/90 hover:bg-crimson hover:border-crimson transition-all shadow-lg flex items-center space-x-2 pulse-crimson">
+            <i class="fa-solid fa-camera text-crimson group-hover:text-white"></i>
+            <span id="photo-btn-label">Pilih Foto Galeri</span>
+        </button>
+    </div>
+
+    <!-- ==========================================
+         1. FIXED TOP NAVBAR
+    =========================================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-[2px]">
+        <div class="max-w-[1400px] mx-auto px-5 md:px-12 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="text-xl md:text-2xl font-wide tracking-tighter flex items-center group">
+                <span class="text-white group-hover:text-white/90 transition">DB</span><span class="text-crimson">AT</span>
+            </a>
+
+            <!-- Center-Right Nav Links -->
+            <div class="flex items-center space-x-4 sm:space-x-8 lg:space-x-12">
+                <nav class="flex items-center space-x-3.5 sm:space-x-7 md:space-x-9 text-[9px] sm:text-[11px] font-mono tracking-[0.2em] sm:tracking-[0.25em] uppercase">
+                    <a href="#home" class="nav-link text-white/75 hover:text-crimson transition-colors relative py-1">HOME</a>
+                    <a href="#about" class="nav-link text-white/75 hover:text-crimson transition-colors relative py-1">ABOUT</a>
+                    <a href="#project" class="nav-link text-white/75 hover:text-crimson transition-colors relative py-1">PROJECT</a>
+                    <a href="#contact" class="nav-link text-white/75 hover:text-crimson transition-colors relative py-1">CONTACT</a>
+                </nav>
+
+                <!-- Contact Me CTA -->
+                <a href="#contact" class="px-3 sm:px-5 py-2 sm:py-2.5 border border-white/25 bg-white/[0.03] hover:bg-crimson hover:border-crimson text-white font-wide text-[8px] sm:text-[10px] tracking-[0.14em] sm:tracking-[0.16em] uppercase transition-all duration-300 shadow-sm whitespace-nowrap">
+                    CONTACT ME
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         2. HERO SECTION (PARALLAX & LAYERED PORTRAIT)
+    =========================================== -->
+    <section id="home" class="relative w-full h-[92vh] sm:h-screen min-h-[620px] max-h-[960px] hero-radial flex items-center justify-center overflow-hidden select-none">
+        
+        <!-- Floating Red Ember Particles -->
+        <div id="hero-particles" class="absolute inset-0 pointer-events-none">
+            <span class="absolute top-[28%] left-[18%] w-1.5 h-1.5 rounded-full bg-crimson/70 blur-[0.5px]" style="animation: floatDot 5s infinite ease-in-out;"></span>
+            <span class="absolute top-[65%] left-[12%] w-1 h-1 rounded-full bg-crimson/60" style="animation: floatDot 7s infinite ease-in-out 1s;"></span>
+            <span class="absolute top-[22%] right-[22%] w-1.5 h-1.5 rounded-full bg-crimson/50" style="animation: floatDot 6s infinite ease-in-out 2s;"></span>
+            <span class="absolute bottom-[28%] right-[16%] w-2 h-2 rounded-full bg-crimson/40 blur-[1px]" style="animation: floatDot 8s infinite ease-in-out 0.5s;"></span>
+            <span class="absolute top-[48%] right-[28%] w-1 h-1 rounded-full bg-crimson/80" style="animation: floatDot 4.5s infinite ease-in-out 1.5s;"></span>
+        </div>
+
+        <!-- Left Vertical Social Sidebar -->
+        <div class="flex fixed left-4 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 z-30 flex-col space-y-4 sm:space-y-5">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+               class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/10 bg-black/40 backdrop-blur-md flex items-center justify-center text-white/45 hover:text-white hover:border-crimson hover:bg-crimson hover:shadow-[0_0_20px_rgba(229,9,20,0.7)] transition-all duration-300">
+                <i class="fa-brands fa-instagram text-xs sm:text-sm"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+               class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/10 bg-black/40 backdrop-blur-md flex items-center justify-center text-white/45 hover:text-white hover:border-crimson hover:bg-crimson hover:shadow-[0_0_20px_rgba(229,9,20,0.7)] transition-all duration-300">
+                <i class="fa-brands fa-linkedin-in text-xs sm:text-sm"></i>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+               class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/10 bg-black/40 backdrop-blur-md flex items-center justify-center text-white/45 hover:text-white hover:border-crimson hover:bg-crimson hover:shadow-[0_0_20px_rgba(229,9,20,0.7)] transition-all duration-300">
+                <i class="fa-brands fa-github text-xs sm:text-sm"></i>
+            </a>
+        </div>
+
+        <!-- Behind-Portrait Giant Stacked Parallax Typography -->
+        <div class="relative z-10 w-full max-w-[1350px] mx-auto px-4 flex flex-col items-center justify-center pointer-events-none -mt-20 sm:-mt-12">
+            <!-- Line 1: DIMAS BAGUS -->
+            <div id="parallax-text-1" class="transition-transform duration-200 ease-out will-change-transform">
+                <div id="entrance-text-1" class="animate-text-top">
+                    <h1 class="font-wide-center text-[10.2vw] sm:text-[9.5vw] md:text-[8.8vw] lg:text-[106px] leading-[0.88] uppercase hero-title-top tracking-tight whitespace-nowrap">
+                        DIMAS BAGUS
+                    </h1>
+                </div>
+            </div>
+            <!-- Line 2: ADITIYAS -->
+            <div id="parallax-text-2" class="transition-transform duration-200 ease-out will-change-transform mt-1 md:mt-2">
+                <div id="entrance-text-2" class="animate-text-bottom">
+                    <h2 class="font-wide-center text-[11.5vw] sm:text-[10.8vw] md:text-[10.2vw] lg:text-[122px] leading-[0.88] uppercase hero-title-bottom tracking-tight whitespace-nowrap">
+                        ADITIYAS
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foreground Cutout User Portrait (Overlapping the giant text with red rim light & pop-up entrance) -->
+        <div id="parallax-portrait" class="absolute inset-x-0 bottom-0 z-20 flex justify-center items-end pointer-events-none transition-transform duration-200 ease-out will-change-transform">
+            <div id="entrance-portrait" class="animate-photo-popup relative w-[340px] sm:w-[440px] md:w-[520px] lg:w-[560px] h-[430px] sm:h-[540px] md:h-[620px] flex items-end justify-center">
+                <!-- Ambient Crimson Backlight Behind Head & Shoulders -->
+                <div id="entrance-glow" class="animate-glow-popup absolute top-14 w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-crimson/45 blur-[70px] -z-10"></div>
+
+                <!-- Processed transparent cutout canvas (shown when image file or gallery photo loads) -->
+                <canvas id="hero-cutout-canvas" class="hidden w-full h-full object-contain object-bottom portrait-mask drop-shadow-[0_-10px_32px_rgba(229,9,20,0.42)]"></canvas>
+
+                <!-- Direct Image Tag (if CORS blocks canvas pixel manipulation) -->
+                <img id="direct-hero-photo" alt="Dimas Bagus Aditiyas"
+                     class="hidden w-full h-full object-contain object-bottom portrait-mask drop-shadow-[0_-10px_32px_rgba(229,9,20,0.42)]" />
+
+                <!-- Instant Vector Portrait Twin (Matches user's exact pose: voluminous hair, clear glasses, hand touching frame, & batik shirt)
+                     Visible immediately even when Android content:// URI blocks external files! -->
+                <svg id="instant-vector-portrait" viewBox="0 0 600 700" class="w-full h-full object-contain object-bottom portrait-mask drop-shadow-[0_-12px_34px_rgba(229,9,20,0.45)] pointer-events-auto cursor-pointer" onclick="document.getElementById('photo-file-input').click()" title="Ketuk untuk memuat foto asli dari galeri HP">
+                    <defs>
+                        <!-- Skin Gradients -->
+                        <linearGradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#d8a586" />
+                            <stop offset="55%" stop-color="#c38b6b" />
+                            <stop offset="100%" stop-color="#9b664b" />
+                        </linearGradient>
+                        <linearGradient id="neckGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#8f5c43" />
+                            <stop offset="100%" stop-color="#6e432e" />
+                        </linearGradient>
+                        <!-- Hair Gradient -->
+                        <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#25292e" />
+                            <stop offset="45%" stop-color="#141619" />
+                            <stop offset="100%" stop-color="#090a0c" />
+                        </linearGradient>
+                        <!-- Batik Shirt Gradient -->
+                        <linearGradient id="batikBase" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e3bfa4" />
+                            <stop offset="50%" stop-color="#d1a686" />
+                            <stop offset="100%" stop-color="#b88b6b" />
+                        </linearGradient>
+                        <!-- Batik Pattern -->
+                        <pattern id="batikPattern" width="60" height="60" patternUnits="userSpaceOnUse">
+                            <path d="M0 30 Q15 10 30 30 T60 30" fill="none" stroke="#6e4f3a" stroke-width="1.4" opacity="0.45"/>
+                            <path d="M0 45 Q15 25 30 45 T60 45" fill="none" stroke="#4a3525" stroke-width="1" opacity="0.35"/>
+                            <circle cx="15" cy="20" r="4" fill="#3a2a1d" opacity="0.35"/>
+                            <circle cx="45" cy="40" r="5" fill="#3a2a1d" opacity="0.35"/>
+                            <circle cx="30" cy="15" r="2" fill="#6e4f3a" opacity="0.4"/>
+                            <path d="M10 48 L22 38 L28 50 Z" fill="#2b2017" opacity="0.3"/>
+                        </pattern>
+                        <!-- Collar Dark Batik Pattern -->
+                        <linearGradient id="collarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#3b3632" />
+                            <stop offset="100%" stop-color="#1c1917" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Ambient Red Rim Aura Behind Head -->
+                    <ellipse cx="290" cy="290" rx="165" ry="185" fill="rgba(229, 9, 20, 0.18)" />
+
+                    <!-- Neck & Black Inner Shirt -->
+                    <path d="M225 445 L225 545 L355 545 L355 445 Z" fill="url(#neckGrad)" />
+                    <path d="M210 495 Q290 535 370 495 L385 600 L195 600 Z" fill="#141619" />
+
+                    <!-- Batik Shirt Shoulders & Torso -->
+                    <path d="M55 700 L75 565 Q95 520 195 500 L290 575 L385 500 Q485 520 515 560 L545 700 Z" fill="url(#batikBase)" />
+                    <path d="M55 700 L75 565 Q95 520 195 500 L290 575 L385 500 Q485 520 515 560 L545 700 Z" fill="url(#batikPattern)" />
+
+                    <!-- Batik Shirt Placket & Fold Lines -->
+                    <path d="M265 555 L305 700 M315 555 L275 700" stroke="#8c674c" stroke-width="2" opacity="0.5" />
+
+                    <!-- Dark Motif Batik Collar Left & Right -->
+                    <path d="M198 485 L145 585 L235 550 L262 568 L222 475 Z" fill="url(#collarGrad)" stroke="#bfa38a" stroke-width="1.5" />
+                    <path d="M382 485 L435 585 L345 550 L318 568 L358 475 Z" fill="url(#collarGrad)" stroke="#bfa38a" stroke-width="1.5" />
+
+                    <!-- Ears -->
+                    <ellipse cx="174" cy="340" rx="16" ry="34" transform="rotate(-8 174 340)" fill="url(#skinGrad)" />
+                    <ellipse cx="406" cy="340" rx="16" ry="34" transform="rotate(8 406 340)" fill="url(#skinGrad)" />
+
+                    <!-- Head / Face Contour -->
+                    <path d="M180 235 Q175 365 205 430 Q245 495 290 498 Q335 495 375 430 Q405 365 400 235 Q395 165 290 165 Q185 165 180 235 Z" fill="url(#skinGrad)" />
+
+                    <!-- Forehead subtle expression lines -->
+                    <path d="M235 235 Q290 227 345 235" fill="none" stroke="#9e6b4f" stroke-width="2" opacity="0.35" />
+                    <path d="M245 248 Q290 242 335 248" fill="none" stroke="#9e6b4f" stroke-width="1.5" opacity="0.3" />
+
+                    <!-- Eyebrows -->
+                    <path d="M202 282 Q235 268 268 280" fill="none" stroke="#231c18" stroke-width="8" stroke-linecap="round" />
+                    <path d="M312 280 Q345 268 378 282" fill="none" stroke="#231c18" stroke-width="8" stroke-linecap="round" />
+
+                    <!-- Eyes -->
+                    <g>
+                        <!-- Left Eye -->
+                        <path d="M212 310 Q238 296 264 310 Q238 322 212 310 Z" fill="#f5f5f5" />
+                        <circle cx="238" cy="309" r="10" fill="#2b1d16" />
+                        <circle cx="238" cy="309" r="4.5" fill="#0a0a0a" />
+                        <circle cx="234" cy="306" r="2.5" fill="#ffffff" />
+                        <!-- Right Eye -->
+                        <path d="M316 310 Q342 296 368 310 Q342 322 316 310 Z" fill="#f5f5f5" />
+                        <circle cx="342" cy="309" r="10" fill="#2b1d16" />
+                        <circle cx="342" cy="309" r="4.5" fill="#0a0a0a" />
+                        <circle cx="338" cy="306" r="2.5" fill="#ffffff" />
+                    </g>
+
+                    <!-- Nose -->
+                    <path d="M282 308 L272 378 Q290 392 308 378 L298 308" fill="none" stroke="#945f44" stroke-width="3" opacity="0.65" />
+                    <ellipse cx="276" cy="382" rx="7" ry="4" fill="#6b3f29" opacity="0.55" />
+                    <ellipse cx="304" cy="382" rx="7" ry="4" fill="#6b3f29" opacity="0.55" />
+
+                    <!-- Lips -->
+                    <path d="M252 428 Q272 418 290 424 Q308 418 328 428 Q308 434 290 432 Q272 434 252 428 Z" fill="#9c5451" />
+                    <path d="M254 429 Q290 448 326 429 Q308 450 290 450 Q272 450 254 429 Z" fill="#b86662" />
+
+                    <!-- Voluminous Styled Wavy Black Hair (Exact silhouette from user photo) -->
+                    <path d="M178 295
+                             C152 250, 142 195, 168 152
+                             C182 115, 228 82, 285 84
+                             C352 84, 428 118, 444 178
+                             C458 222, 438 268, 405 295
+                             C402 255, 388 220, 355 205
+                             C335 232, 310 235, 295 202
+                             C250 198, 205 215, 185 265 Z"
+                          fill="url(#hairGrad)" />
+                    <!-- Hair Texture Highlights -->
+                    <path d="M210 145 Q275 110 345 155" fill="none" stroke="#3b424c" stroke-width="3" opacity="0.45" />
+                    <path d="M240 120 Q310 100 385 150" fill="none" stroke="#49515e" stroke-width="2" opacity="0.4" />
+                    <path d="M325 185 Q348 225 382 220" fill="none" stroke="#181b1f" stroke-width="5" stroke-linecap="round" />
+
+                    <!-- Clear / Transparent Frame Glasses (Signature detail from user photo) -->
+                    <g>
+                        <!-- Left Lens Frame -->
+                        <rect x="186" y="280" width="92" height="62" rx="14" fill="rgba(255,255,255,0.07)" stroke="rgba(235, 230, 225, 0.78)" stroke-width="5.5" />
+                        <!-- Right Lens Frame -->
+                        <rect x="302" y="280" width="92" height="62" rx="14" fill="rgba(255,255,255,0.07)" stroke="rgba(235, 230, 225, 0.78)" stroke-width="5.5" />
+                        <!-- Bridge -->
+                        <path d="M278 294 Q290 288 302 294" fill="none" stroke="rgba(235, 230, 225, 0.85)" stroke-width="5.5" />
+                        <!-- Temple Hinge Highlights -->
+                        <rect x="180" y="288" width="8" height="6" rx="2" fill="#d4d4d8" />
+                        <rect x="392" y="288" width="8" height="6" rx="2" fill="#d4d4d8" />
+                        <!-- Screen Glare Reflections Inside Glasses Lenses (just like the photo!) -->
+                        <rect x="248" y="290" width="16" height="24" rx="2" fill="rgba(255,255,255,0.82)" transform="rotate(-4 256 302)" />
+                        <rect x="320" y="290" width="16" height="24" rx="2" fill="rgba(255,255,255,0.82)" transform="rotate(-4 328 302)" />
+                    </g>
+
+                    <!-- Left Hand Raised Holding the Glasses Frame (Exact pose from user photo) -->
+                    <g>
+                        <!-- Palm & Wrist -->
+                        <path d="M565 510 L510 435 Q475 405 430 350 L404 318 Q396 306 410 298 L455 322 L422 272 Q415 260 432 255 L485 262 L448 242 Q465 228 505 245 L555 292 Q582 340 562 415 L595 495 Z"
+                              fill="url(#skinGrad)" stroke="#8c583e" stroke-width="2" />
+                        <!-- Finger Crease Lines -->
+                        <path d="M432 255 L488 282 M452 292 L505 322 M478 345 L525 368" stroke="#8c583e" stroke-width="2.2" opacity="0.55" stroke-linecap="round" />
+                        <!-- Batik Sleeve Cuff on Right Wrist -->
+                        <path d="M525 465 L595 445 L600 545 L550 555 Z" fill="url(#batikBase)" />
+                        <path d="M525 465 L595 445 L600 545 L550 555 Z" fill="url(#batikPattern)" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         3. ABOUT ME SECTION (ROUNDED OFF-WHITE SHEET)
+    =========================================== -->
+    <section id="about" class="relative z-30 -mt-12 bg-[#f2f2f2] text-[#0c0c0c] rounded-t-[42px] md:rounded-t-[64px] pt-20 pb-28 px-6 md:px-14 lg:px-24 shadow-[0_-25px_70px_rgba(0,0,0,0.85)]">
+        <div class="max-w-[1320px] mx-auto">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                
+                <!-- LEFT COLUMN: Heading, Metadata & CV Button -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <span class="font-mono text-[11px] tracking-[0.28em] text-crimson font-semibold uppercase mb-3">
+                        [ 01 . PROFILE ]
+                    </span>
+
+                    <div class="leading-[0.92] mb-12">
+                        <h2 class="font-wide text-5xl sm:text-6xl md:text-[64px] uppercase text-[#111111] block">ABOUT</h2>
+                        <h2 class="font-wide text-5xl sm:text-6xl md:text-[64px] uppercase text-crimson block mt-1">ME</h2>
+                    </div>
+
+                    <!-- Metadata List -->
+                    <div class="space-y-6 border-t border-black/10 pt-6 mb-10 max-w-sm">
+                        <div class="border-b border-black/10 pb-4">
+                            <p class="font-mono text-[9px] tracking-[0.22em] text-black/40 uppercase mb-1">FULL NAME</p>
+                            <p class="font-wide text-sm md:text-base text-[#111] tracking-tight">DIMAS BAGUS ADITIYAS</p>
+                        </div>
+                        <div class="border-b border-black/10 pb-4">
+                            <p class="font-mono text-[9px] tracking-[0.22em] text-black/40 uppercase mb-1">LOCATION</p>
+                            <p class="font-wide text-sm md:text-base text-[#111] tracking-tight">CILEUNGSI, WEST JAVA</p>
+                        </div>
+                        <div class="border-b border-black/10 pb-4">
+                            <p class="font-mono text-[9px] tracking-[0.22em] text-black/40 uppercase mb-1">SPECIALIZATION</p>
+                            <p class="font-wide text-sm md:text-base text-[#111] tracking-tight">FULL-STACK DEVELOPER</p>
+                        </div>
+                        <div class="border-b border-black/10 pb-4">
+                            <p class="font-mono text-[9px] tracking-[0.22em] text-black/40 uppercase mb-1">STATUS</p>
+                            <p class="font-wide text-sm md:text-base text-[#111] tracking-tight">STUDENT / DEVELOPER</p>
+                        </div>
+                    </div>
+
+                    <!-- Download CV Button -->
+                    <div>
+                        <button id="download-cv-btn" class="group inline-flex items-center space-x-3.5 bg-[#111111] hover:bg-crimson text-white font-wide text-[11px] tracking-[0.12em] uppercase px-7 py-4 rounded-xl shadow-lg hover:shadow-[0_12px_30px_rgba(229,9,20,0.4)] transition-all duration-300">
+                            <span>DOWNLOAD CV</span>
+                            <i class="fa-solid fa-download text-xs group-hover:translate-y-0.5 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Bio Paragraph & Bento Skill Cards -->
+                <div class="lg:col-span-7 flex flex-col justify-between space-y-12 lg:pt-6">
+                    <!-- Bio Paragraph (Exact copy from video) -->
+                    <p class="text-[#333333] text-lg sm:text-xl md:text-[23px] font-normal leading-[1.68] tracking-[-0.01em]">
+                        I build web applications from front to back — crafting clean interfaces with <span class="text-black font-medium">React & Next.js</span> and powering them with <span class="text-black font-medium">Laravel</span> on the server side. Since 2023, I've been turning ideas into functional digital products, from e-commerce platforms to donation systems. I focus on writing scalable code, creating smooth user experiences, and delivering solutions that actually work. Currently exploring mobile development with <span class="text-black font-medium">Flutter</span> and diving deeper into system architecture.
+                    </p>
+
+                    <!-- Bento Skill Cards Grid -->
+                    <div class="space-y-6">
+                        
+                        <!-- Card 1: SOFTWARE ENGINEER -->
+                        <div class="bg-white rounded-[26px] p-7 md:p-9 shadow-[0_15px_35px_rgba(0,0,0,0.05)] border border-black/[0.04] hover:shadow-[0_20px_45px_rgba(0,0,0,0.09)] transition-all duration-300">
+                            <div class="inline-block border-b-2 border-crimson pb-1.5 mb-7">
+                                <span class="font-mono text-[10px] font-bold tracking-[0.22em] text-black/60 hover:text-crimson uppercase transition-colors">
+                                    SOFTWARE ENGINEER
+                                </span>
+                            </div>
+
+                            <!-- 16 Tech Icons (2 rows matching video) -->
+                            <div class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-y-6 gap-x-4 items-center text-3xl">
+                                <i class="devicon-php-plain colored skill-icon-item" title="PHP"></i>
+                                <i class="devicon-laravel-original colored skill-icon-item" title="Laravel"></i>
+                                <i class="devicon-livewire-plain colored skill-icon-item" title="Livewire"></i>
+                                <i class="devicon-mysql-plain-wordmark colored skill-icon-item" title="MySQL"></i>
+                                <i class="devicon-html5-plain colored skill-icon-item" title="HTML5"></i>
+                                <i class="devicon-css3-plain colored skill-icon-item" title="CSS3"></i>
+                                <i class="devicon-javascript-plain colored skill-icon-item" title="JavaScript"></i>
+                                <i class="devicon-bootstrap-plain colored skill-icon-item" title="Bootstrap"></i>
+                                <i class="devicon-tailwindcss-original colored skill-icon-item" title="Tailwind CSS"></i>
+                                <i class="devicon-flutter-plain colored skill-icon-item" title="Flutter"></i>
+                                <i class="devicon-react-original colored skill-icon-item" title="React"></i>
+                                <i class="devicon-nextjs-original-wordmark colored skill-icon-item text-black" title="Next.js"></i>
+                                <i class="devicon-c-plain colored skill-icon-item" title="C Language"></i>
+                                <i class="devicon-dart-plain colored skill-icon-item" title="Dart"></i>
+                                <i class="devicon-figma-plain colored skill-icon-item" title="Figma"></i>
+                                <i class="devicon-nodejs-plain colored skill-icon-item" title="Node.js"></i>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Row: TOOLS & SERVER + SOFT SKILLS -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            
+                            <!-- Card 2: TOOLS & SERVER -->
+                            <div class="bg-white rounded-[26px] p-7 md:p-8 shadow-[0_15px_35px_rgba(0,0,0,0.05)] border border-black/[0.04] hover:shadow-[0_20px_45px_rgba(0,0,0,0.09)] transition-all duration-300">
+                                <div class="inline-block border-b-2 border-black/15 hover:border-crimson pb-1.5 mb-6 transition-colors">
+                                    <span class="font-mono text-[10px] font-bold tracking-[0.22em] text-black/50 uppercase">
+                                        TOOLS & SERVER
+                                    </span>
+                                </div>
+                                <div class="flex items-center space-x-6 text-3xl text-black/75">
+                                    <i class="devicon-git-plain colored skill-icon-item" title="Git"></i>
+                                    <i class="devicon-github-original colored skill-icon-item text-black" title="GitHub"></i>
+                                    <i class="fa-solid fa-code text-2xl text-crimson skill-icon-item" title="REST API / Clean Code"></i>
+                                    <i class="fa-solid fa-server text-2xl text-sky-600 skill-icon-item" title="Server Deployment"></i>
+                                    <i class="fa-solid fa-database text-2xl text-amber-600 skill-icon-item" title="Database Management"></i>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: SOFT SKILLS -->
+                            <div class="bg-white rounded-[26px] p-7 md:p-8 shadow-[0_15px_35px_rgba(0,0,0,0.05)] border border-black/[0.04] hover:shadow-[0_20px_45px_rgba(0,0,0,0.09)] transition-all duration-300">
+                                <div class="inline-block border-b-2 border-black/15 hover:border-crimson pb-1.5 mb-6 transition-colors">
+                                    <span class="font-mono text-[10px] font-bold tracking-[0.22em] text-black/50 uppercase">
+                                        SOFT SKILLS
+                                    </span>
+                                </div>
+                                <div class="flex items-center space-x-7 text-2xl text-black/75">
+                                    <div class="skill-icon-item flex flex-col items-center cursor-pointer" title="Problem Solving">
+                                        <i class="fa-solid fa-lightbulb text-amber-500 text-3xl"></i>
+                                    </div>
+                                    <div class="skill-icon-item flex flex-col items-center cursor-pointer" title="Fast Learner & Adaptable">
+                                        <i class="fa-solid fa-rocket text-crimson text-3xl"></i>
+                                    </div>
+                                    <div class="skill-icon-item flex flex-col items-center cursor-pointer" title="Teamwork & Collaboration">
+                                        <i class="fa-solid fa-users text-indigo-600 text-3xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         4. DIAGONAL MARQUEE TICKER DIVIDER
+    =========================================== -->
+    <div class="relative z-40 bg-[#f2f2f2] pb-8 overflow-hidden">
+        <div class="w-[104%] -ml-[2%] bg-[#0b0b0b] border-y border-white/10 py-5 -rotate-[1.6deg] shadow-2xl overflow-hidden">
+            <div class="animate-marquee flex items-center space-x-10">
+                <!-- Repeated ticker items -->
+                <div class="flex items-center space-x-10 shrink-0">
+                    <span class="font-wide text-xl md:text-2xl text-white/90 uppercase tracking-wider">SCALABLE SYSTEM</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-crimson shadow-[0_0_10px_#e50914]"></span>
+                    <span class="font-wide text-xl md:text-2xl text-white/90 uppercase tracking-wider">CLEAN CODE</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-crimson shadow-[0_0_10px_#e50914]"></span>
+                    <span class="font-wide text-xl md:text-2xl text-white/90 uppercase tracking-wider">SCALABLE SYSTEM</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-crimson shadow-[0_0_10px_#e50914]"></span>
+                    <span class="font-wide text-xl md:text-2xl text-white/90 uppercase tracking-wider">CLEAN CODE</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-crimson shadow-[0_0_10px_#e50914]"></span>
+                </div>
+                <div class="flex items-center space-x-10 shrink-0">
+                    <span class="font-wide text-xl md:text-2xl text-white/90 uppercase tracking-wider">SCALABLE SYSTEM</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-crimson shadow-[0_0_10px_#e50914]"></span>
+                    <span class="font-wide text-xl md:text-2xl text-white/90 uppercase tracking-wider">CLEAN CODE</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-crimson shadow-[0_0_10px_#e50914]"></span>
+                    <span class="font-wide text-xl md:text-2xl text-white/90 uppercase tracking-wider">SCALABLE SYSTEM</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-crimson shadow-[0_0_10px_#e50914]"></span>
+                    <span class="font-wide text-xl md:text-2xl text-white/90 uppercase tracking-wider">CLEAN CODE</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-crimson shadow-[0_0_10px_#e50914]"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         5. ARCHIVED WORKS (PROJECTS SECTION)
+    =========================================== -->
+    <section id="project" class="relative bg-carbon pt-24 pb-28 px-6 md:px-14 lg:px-24 overflow-hidden">
+        <!-- Ambient red side glow -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-crimson/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+        <div class="max-w-[1320px] mx-auto relative z-10">
+            <!-- Section Header -->
+            <div class="mb-16">
+                <span class="font-mono text-[11px] tracking-[0.28em] text-crimson uppercase block mb-3">
+                    [ 02 ] SELECTED
+                </span>
+                <div class="leading-[0.94]">
+                    <h2 class="font-wide text-4xl sm:text-6xl md:text-[62px] text-white uppercase block">ARCHIVED</h2>
+                    <h2 class="font-wide text-4xl sm:text-6xl md:text-[62px] text-crimson uppercase block mt-1">WORKS</h2>
+                </div>
+            </div>
+
+            <!-- 2x2 Project Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+                
+                <!-- PROJECT 1: DONATE PLATFORM -->
+                <article class="group relative bg-[#111111] rounded-[24px] overflow-hidden border border-white/10 hover:border-crimson/50 transition-all duration-500 flex flex-col justify-between h-[390px] sm:h-[430px]">
+                    <!-- Mockup Preview Top -->
+                    <div class="relative h-[68%] bg-gradient-to-b from-[#e8f5e9] to-white p-6 overflow-hidden">
+                        <div class="max-w-md mx-auto pt-2 flex items-center justify-between gap-4">
+                            <div class="space-y-2.5">
+                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-semibold">Donasi Umat</span>
+                                <h4 class="text-slate-900 font-bold text-lg sm:text-xl leading-snug">Berbagi Kebaikan,<br><span class="text-emerald-600">Wujudkan Harapan</span></h4>
+                                <p class="text-[11px] text-slate-500 leading-relaxed">Salurkan donasi terbaik Anda dengan transparan, aman, dan tepat sasaran.</p>
+                            </div>
+                            <!-- Donation Box Illustration -->
+                            <div class="w-28 h-28 shrink-0 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex flex-col items-center justify-center p-3 relative group-hover:scale-105 transition-transform duration-500">
+                                <i class="fa-solid fa-hand-holding-heart text-4xl text-emerald-600"></i>
+                                <span class="mt-1.5 text-[9px] font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded-full">Rp 100.000+</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <span class="text-xs font-bold text-slate-700">Fitur Unggulan Donasi Umat</span>
+                        </div>
+                        <!-- Dark gradient overlay blending into card footer -->
+                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#111111] via-[#111111]/80 to-transparent"></div>
+                    </div>
+
+                    <!-- Card Bottom Details -->
+                    <div class="relative z-10 px-7 pb-7 pt-2 flex flex-col justify-end">
+                        <h3 class="font-wide text-xl sm:text-2xl text-white uppercase tracking-tight mb-4 group-hover:text-crimson transition-colors">
+                            DONATE PLATFORM
+                        </h3>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="openProjectModal('DONATE PLATFORM', 'Full-stack online donation & crowdfunding platform built with Laravel & MySQL. Features real-time donation tracking, transparent campaign reporting, and automated payment gateway integration.')" class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-crimson text-white font-mono text-[10px] tracking-wider uppercase transition-all">
+                                <span>VIEW CASE</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            </button>
+                            <span class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 text-xs" title="Laravel + MySQL">
+                                <i class="devicon-laravel-original"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 2: E-COMMERCE SYSTEM -->
+                <article class="group relative bg-[#111111] rounded-[24px] overflow-hidden border border-white/10 hover:border-crimson/50 transition-all duration-500 flex flex-col justify-between h-[390px] sm:h-[430px]">
+                    <!-- Mockup Preview Top (Dashboard UI) -->
+                    <div class="relative h-[68%] bg-[#fafafa] p-6 text-slate-800 overflow-hidden">
+                        <p class="text-xs font-bold text-slate-900 mb-3">Dashboard</p>
+                        <div class="grid grid-cols-4 gap-2.5 mb-4">
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
+                                <p class="text-[9px] text-slate-400">New Orders</p>
+                                <p class="text-base font-bold text-slate-800">2</p>
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
+                                <p class="text-[9px] text-slate-400">Order Processing</p>
+                                <p class="text-base font-bold text-slate-800">1</p>
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
+                                <p class="text-[9px] text-slate-400">Shipped Orders</p>
+                                <p class="text-base font-bold text-slate-800">1</p>
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
+                                <p class="text-[9px] text-slate-400">Average Price</p>
+                                <p class="text-sm font-extrabold text-slate-900">Rp 1.133.500</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg border border-slate-200 p-3 text-[10px]">
+                            <p class="font-semibold text-slate-700 mb-2">Latest Orders</p>
+                            <div class="flex justify-between py-1 border-b border-slate-100 text-slate-500">
+                                <span>#ORD-09</span><span>Bandung</span><span class="text-emerald-600 font-bold">Paid</span><span>Rp 940.000</span>
+                            </div>
+                            <div class="flex justify-between py-1 text-slate-500">
+                                <span>#ORD-08</span><span>Jakarta</span><span class="text-amber-600 font-bold">Midtrans</span><span>Rp 1.327.000</span>
+                            </div>
+                        </div>
+                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#111111] via-[#111111]/80 to-transparent"></div>
+                    </div>
+
+                    <!-- Card Bottom Details -->
+                    <div class="relative z-10 px-7 pb-7 pt-2 flex flex-col justify-end">
+                        <h3 class="font-wide text-xl sm:text-2xl text-white uppercase tracking-tight mb-4 group-hover:text-crimson transition-colors">
+                            E-COMMERCE SYSTEM
+                        </h3>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="openProjectModal('E-COMMERCE SYSTEM', 'Comprehensive E-Commerce & Order Management Dashboard featuring real-time sales metrics, Midtrans payment integration, automated invoice generation, and multi-status order tracking.')" class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-crimson text-white font-mono text-[10px] tracking-wider uppercase transition-all">
+                                <span>VIEW CASE</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            </button>
+                            <span class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 text-xs">
+                                <i class="devicon-react-original"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 3: TASK MANAGEMENT -->
+                <article class="group relative bg-[#111111] rounded-[24px] overflow-hidden border border-white/10 hover:border-crimson/50 transition-all duration-500 flex flex-col justify-between h-[390px] sm:h-[430px]">
+                    <!-- Mockup Preview Top -->
+                    <div class="relative h-[68%] bg-[#f1f5f9] p-5 text-slate-800 overflow-hidden flex gap-3">
+                        <!-- Mini Sidebar -->
+                        <div class="w-20 bg-indigo-600 rounded-xl p-2.5 text-white flex flex-col space-y-2 shrink-0">
+                            <span class="font-bold text-[10px] tracking-wider">TUGAS</span>
+                            <div class="h-1.5 w-10 bg-white/40 rounded"></div>
+                            <div class="h-1.5 w-12 bg-white/20 rounded"></div>
+                            <div class="h-1.5 w-8 bg-white/20 rounded"></div>
+                        </div>
+                        <!-- Main Panel -->
+                        <div class="flex-1">
+                            <p class="text-xs font-bold text-slate-700 mb-2">Dashboard</p>
+                            <div class="grid grid-cols-3 gap-2 mb-3">
+                                <div class="bg-white p-2.5 rounded-lg shadow-sm border-l-4 border-indigo-500">
+                                    <p class="text-[8px] text-slate-400">TOTAL USER</p>
+                                    <p class="text-sm font-bold">3</p>
+                                </div>
+                                <div class="bg-white p-2.5 rounded-lg shadow-sm border-l-4 border-emerald-500">
+                                    <p class="text-[8px] text-slate-400">TOTAL ADMIN</p>
+                                    <p class="text-sm font-bold">1</p>
+                                </div>
+                                <div class="bg-white p-2.5 rounded-lg shadow-sm border-l-4 border-amber-500">
+                                    <p class="text-[8px] text-slate-400">TOTAL TUGAS</p>
+                                    <p class="text-sm font-bold">2</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg shadow-sm flex items-center justify-between">
+                                <div>
+                                    <p class="text-[8px] text-rose-500 font-bold">BELUM DITUGASKAN</p>
+                                    <p class="text-sm font-bold">0</p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full border-4 border-emerald-500 border-t-rose-500"></div>
+                            </div>
+                        </div>
+                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#111111] via-[#111111]/80 to-transparent"></div>
+                    </div>
+
+                    <!-- Card Bottom Details -->
+                    <div class="relative z-10 px-7 pb-7 pt-2 flex flex-col justify-end">
+                        <h3 class="font-wide text-xl sm:text-2xl text-white uppercase tracking-tight mb-4 group-hover:text-crimson transition-colors">
+                            TASK MANAGEMENT
+                        </h3>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="openProjectModal('TASK MANAGEMENT', 'Role-based team task management application with visual completion charts, task assignment workflows, deadline alerts, and PDF/Excel report exports.')" class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-crimson text-white font-mono text-[10px] tracking-wider uppercase transition-all">
+                                <span>VIEW CASE</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            </button>
+                            <span class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 text-xs">
+                                <i class="devicon-php-plain"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 4: SCHOOL WEBSITE -->
+                <article class="group relative bg-[#111111] rounded-[24px] overflow-hidden border border-white/10 hover:border-crimson/50 transition-all duration-500 flex flex-col justify-between h-[390px] sm:h-[430px]">
+                    <!-- Mockup Preview Top -->
+                    <div class="relative h-[68%] bg-slate-900 overflow-hidden">
+                        <!-- Top Institutional Header -->
+                        <div class="bg-[#1e293b] px-5 py-2.5 flex items-center justify-between border-b border-white/10">
+                            <div>
+                                <p class="font-bold text-white text-xs tracking-wide">SMK NEGERI 3 PARIAMAN</p>
+                                <p class="text-[9px] text-slate-300">Pusat Keunggulan Sumber Kehidupan</p>
+                            </div>
+                            <div class="flex space-x-3 text-[9px] text-slate-300">
+                                <span>Kompetensi Keahlian</span>
+                                <span>Program Sekolah</span>
+                                <span>Berita</span>
+                            </div>
+                        </div>
+                        <!-- Hero Banner Preview -->
+                        <div class="p-6 relative bg-gradient-to-r from-slate-900 via-slate-800 to-sky-900 h-full flex flex-col justify-center items-center text-center">
+                            <p class="text-white font-semibold text-base tracking-wide mb-1">SELAMAT DATANG</p>
+                            <p class="text-sky-300 text-xs italic">Website of Sea — Portal Informasi & Akademik Resmi</p>
+                        </div>
+                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#111111] via-[#111111]/85 to-transparent"></div>
+                    </div>
+
+                    <!-- Card Bottom Details -->
+                    <div class="relative z-10 px-7 pb-7 pt-2 flex flex-col justify-end">
+                        <h3 class="font-wide text-xl sm:text-2xl text-white uppercase tracking-tight mb-4 group-hover:text-crimson transition-colors">
+                            SCHOOL WEBSITE
+                        </h3>
+                        <div class="flex items-center space-x-3">
+                            <button onclick="openProjectModal('SCHOOL WEBSITE — SMKN 3 PARIAMAN', 'Official school portal for SMK Negeri 3 Pariaman featuring department profiles, LSP certification center, news management CMS, and student academic resources.')" class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-crimson text-white font-mono text-[10px] tracking-wider uppercase transition-all">
+                                <span>VIEW CASE</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            </button>
+                            <span class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 text-xs">
+                                <i class="devicon-tailwindcss-original"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Extra Hidden Projects (Revealed on "LOAD MORE EXPERIENCE") -->
+            <div id="more-projects" class="hidden grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mt-10">
+                <article class="group relative bg-[#111111] rounded-[24px] overflow-hidden border border-white/10 hover:border-crimson/50 transition-all duration-500 p-7 flex flex-col justify-between h-[260px]">
+                    <div>
+                        <span class="font-mono text-[10px] text-crimson uppercase tracking-widest">FLUTTER + REST API</span>
+                        <h3 class="font-wide text-xl text-white uppercase mt-2">MOBILE POS & INVENTORY</h3>
+                        <p class="text-white/60 text-sm mt-3">Cross-platform mobile point-of-sale app built with Flutter, featuring barcode scanning and real-time stock sync.</p>
+                    </div>
+                    <div>
+                        <button onclick="openProjectModal('MOBILE POS & INVENTORY', 'Cross-platform Flutter application integrated with a Laravel backend for real-time retail inventory and cashier management.')" class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-crimson text-white font-mono text-[10px] tracking-wider uppercase transition-all">
+                            <span>VIEW CASE</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                        </button>
+                    </div>
+                </article>
+                <article class="group relative bg-[#111111] rounded-[24px] overflow-hidden border border-white/10 hover:border-crimson/50 transition-all duration-500 p-7 flex flex-col justify-between h-[260px]">
+                    <div>
+                        <span class="font-mono text-[10px] text-crimson uppercase tracking-widest">NEXT.JS + TAILWIND</span>
+                        <h3 class="font-wide text-xl text-white uppercase mt-2">SAAS ANALYTICS PORTAL</h3>
+                        <p class="text-white/60 text-sm mt-3">High-performance SSR web application with interactive telemetry charts and dark-mode design system.</p>
+                    </div>
+                    <div>
+                        <button onclick="openProjectModal('SAAS ANALYTICS PORTAL', 'Built with Next.js App Router and Tailwind CSS for real-time business intelligence and user metrics visualization.')" class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-crimson text-white font-mono text-[10px] tracking-wider uppercase transition-all">
+                            <span>VIEW CASE</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Bottom Trigger: END OF ARCHIVE / LOAD MORE EXPERIENCE -->
+            <div class="mt-20 flex flex-col items-center text-center">
+                <span class="font-mono text-[9px] tracking-[0.35em] text-crimson/80 uppercase mb-2">
+                    END OF ARCHIVE
+                </span>
+                <button id="load-more-btn" class="group flex flex-col items-center focus:outline-none">
+                    <span id="load-more-text" class="font-wide text-sm md:text-base text-white group-hover:text-crimson tracking-wider uppercase transition-colors">
+                        LOAD MORE EXPERIENCE
+                    </span>
+                    <div class="mt-4 w-px h-8 bg-gradient-to-b from-crimson to-transparent relative">
+                        <i class="fa-solid fa-chevron-down text-[10px] text-crimson absolute -bottom-2 -left-[4.5px] animate-bounce"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         6. LICENSES & CREDENTIALS (3D CAROUSEL)
+    =========================================== -->
+    <section class="relative bg-carbon py-24 px-6 md:px-14 lg:px-24 overflow-hidden border-t border-white/[0.04]">
+        <!-- Subtle radial red glow behind active certificate -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-crimson/12 rounded-full blur-[130px] pointer-events-none"></div>
+
+        <div class="max-w-[1320px] mx-auto relative z-10">
+            <!-- Section Header -->
+            <div class="mb-12">
+                <span class="font-mono text-[11px] tracking-[0.28em] text-crimson uppercase block mb-3">
+                    [ 03 ] CERTIFICATES
+                </span>
+                <div class="leading-[0.94]">
+                    <h2 class="font-wide text-4xl sm:text-6xl md:text-[58px] text-white uppercase block">LICENSES &</h2>
+                    <h2 class="font-wide text-4xl sm:text-6xl md:text-[58px] text-crimson uppercase block mt-1">CREDENTIALS</h2>
+                </div>
+            </div>
+
+            <!-- 3D Interactive Certificate Cover-Flow Stage -->
+            <div id="cert-stage" class="cert-stage my-6">
+                <!-- Cards injected dynamically by JS for smooth 3D cover-flow transforms -->
+            </div>
+
+            <!-- Pagination Dots + Prev/Next Controls -->
+            <div class="mt-8 flex items-center justify-center space-x-3" id="cert-dots">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         7. CONTACT & FOOTER SECTION
+    =========================================== -->
+    <footer id="contact" class="relative bg-carbon pt-24 pb-12 px-6 md:px-14 lg:px-24 border-t border-white/[0.06] overflow-hidden">
+        <!-- Ambient bottom right glow -->
+        <div class="absolute bottom-0 right-10 w-[450px] h-[300px] bg-crimson/10 rounded-full blur-[130px] pointer-events-none"></div>
+
+        <div class="max-w-[1320px] mx-auto relative z-10">
+            
+            <!-- Tag -->
+            <span class="font-mono text-[11px] tracking-[0.28em] text-crimson uppercase block mb-6">
+                [ 04 . GET IN TOUCH ]
+            </span>
+
+            <!-- Giant Stacked Call-To-Action -->
+            <div class="leading-[0.9] mb-20 select-none">
+                <h2 class="font-wide text-5xl sm:text-7xl md:text-[88px] lg:text-[104px] text-white uppercase block tracking-tight">
+                    LET'S CREATE
+                </h2>
+                <h2 class="font-wide text-5xl sm:text-7xl md:text-[88px] lg:text-[104px] text-crimson uppercase block tracking-tight mt-1">
+                    SOMETHING
+                </h2>
+                <h2 class="font-wide text-5xl sm:text-7xl md:text-[88px] lg:text-[104px] text-white uppercase block tracking-tight mt-1">
+                    GREAT.
+                </h2>
+            </div>
+
+            <!-- Horizontal Divider Line -->
+            <div class="w-full h-px bg-white/10 mb-14"></div>
+
+            <!-- 3-Column Footer Metadata Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-white/10">
+                
+                <!-- Col 1: SOCIALS -->
+                <div class="md:col-span-4 space-y-4">
+                    <p class="font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase mb-5">SOCIALS</p>
+                    <ul class="space-y-3.5">
+                        <li>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center space-x-3 text-white/80 hover:text-crimson transition-colors">
+                                <i class="fa-brands fa-instagram text-sm text-white/40 group-hover:text-crimson transition-colors w-5"></i>
+                                <span class="font-wide text-xs uppercase tracking-wider">INSTAGRAM</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center space-x-3 text-white/80 hover:text-crimson transition-colors">
+                                <i class="fa-brands fa-linkedin-in text-sm text-white/40 group-hover:text-crimson transition-colors w-5"></i>
+                                <span class="font-wide text-xs uppercase tracking-wider">LINKEDIN</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center space-x-3 text-white/80 hover:text-crimson transition-colors">
+                                <i class="fa-brands fa-github text-sm text-white/40 group-hover:text-crimson transition-colors w-5"></i>
+                                <span class="font-wide text-xs uppercase tracking-wider">GITHUB</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center space-x-3 text-white/80 hover:text-crimson transition-colors">
+                                <i class="fa-brands fa-whatsapp text-sm text-white/40 group-hover:text-crimson transition-colors w-5"></i>
+                                <span class="font-wide text-xs uppercase tracking-wider">WHATSAPP</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 2: CONTACT DETAILS -->
+                <div class="md:col-span-5 space-y-4">
+                    <p class="font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase mb-5">CONTACT DETAILS</p>
+                    <div>
+                        <button id="copy-email-btn" class="group text-left focus:outline-none" title="Click to copy email">
+                            <span class="font-wide text-sm sm:text-base md:text-lg text-white group-hover:text-crimson transition-colors border-b border-white/20 group-hover:border-crimson pb-1 break-all">
+                                muhammadfajrirmdhn27@gmail.com
+                            </span>
+                        </button>
+                        <p id="copy-feedback" class="text-[11px] font-mono text-emerald-400 mt-1.5 hidden">✓ Email copied to clipboard!</p>
+                    </div>
+                    <div class="pt-3 space-y-1 font-mono text-xs text-white/50 tracking-wider uppercase">
+                        <p>JONGGOL, WEST JAVA, INDONESIA</p>
+                        <p class="text-white/40">AVAILABLE FOR REMOTE PROJECTS</p>
+                    </div>
+                </div>
+
+                <!-- Col 3: LOCAL TIME (Live WIB Clock + Scroll Top Button) -->
+                <div class="md:col-span-3 flex flex-col md:items-end justify-between">
+                    <div class="md:text-right">
+                        <p class="font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase mb-3">LOCAL TIME</p>
+                        <div class="flex items-baseline md:justify-end space-x-2">
+                            <span id="wib-clock" class="font-wide text-2xl sm:text-3xl lg:text-[32px] text-white tracking-tight tabular-nums">
+                                01:53:15
+                            </span>
+                            <span class="font-mono text-[10px] font-bold text-crimson uppercase">WIB</span>
+                        </div>
+                    </div>
+
+                    <!-- Red Circular Scroll-to-Top Button (Turns White on Hover like 0:46 in video) -->
+                    <div class="mt-8 md:mt-0">
+                        <button id="scroll-top-btn" aria-label="Scroll to top"
+                                class="w-12 h-12 rounded-full bg-crimson hover:bg-white text-white hover:text-black flex items-center justify-center shadow-[0_0_25px_rgba(229,9,20,0.6)] hover:shadow-[0_0_30px_rgba(255,255,255,0.8)] transition-all duration-300 group">
+                            <i class="fa-solid fa-arrow-up text-sm group-hover:-translate-y-0.5 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright Bar -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[10px] font-mono tracking-[0.22em] text-white/35 uppercase gap-4">
+                <p>© 2026 DIMAS BAGUS ADITIYAS. ALL RIGHTS RESERVED.</p>
+                <p>BUILT WITH PASSION</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         CASE STUDY / NOTIFICATION MODAL (NO ALERT)
+    =========================================== -->
+    <div id="case-modal" class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/80 backdrop-blur-md p-6">
+        <div class="bg-[#121212] border border-white/15 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl">
+            <button id="close-modal-btn" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/5 hover:bg-crimson text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="font-mono text-[10px] tracking-[0.25em] text-crimson uppercase">[ PROJECT CASE STUDY ]</span>
+            <h3 id="modal-title" class="font-wide text-2xl text-white uppercase mt-2 mb-4">PROJECT TITLE</h3>
+            <p id="modal-desc" class="text-white/70 text-sm leading-relaxed mb-6"></p>
+            <div class="flex items-center justify-end space-x-3">
+                <button onclick="closeProjectModal()" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-mono uppercase tracking-wider text-white transition">Close</button>
+                <a href="#contact" onclick="closeProjectModal()" class="px-5 py-2.5 rounded-xl bg-crimson hover:bg-red-700 text-xs font-wide uppercase tracking-wider text-white transition">Inquire Project</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT INTERACTIVITY
+    =========================================== -->
+    <script>
+        /* -----------------------------------------------------------
+         * 0. MULTI-SOURCE HERO PHOTO LOADER + ANDROID CONTENT:// GALLERY PICKER
+         *    Fixes the issue where opening index.html via content://media/external
+         *    on Android Brave blocks relative image paths.
+         *    1) Checks localStorage for saved user photo first
+         *    2) Tries 315408_2.png and 315408.png automatically
+         *    3) Shows instant vector twin portrait if blocked by content://
+         *    4) Lets user pick their photo from gallery in 1 tap & auto-cuts black BG!
+         * ----------------------------------------------------------- */
+        const cutoutCanvas = document.getElementById('hero-cutout-canvas');
+        const directPhoto = document.getElementById('direct-hero-photo');
+        const vectorPortrait = document.getElementById('instant-vector-portrait');
+        const photoInput = document.getElementById('photo-file-input');
+        const photoBtnLabel = document.getElementById('photo-btn-label');
+        const changePhotoBtn = document.getElementById('change-photo-btn');
+
+        const entrancePortrait = document.getElementById('entrance-portrait');
+        const entranceText1 = document.getElementById('entrance-text-1');
+        const entranceText2 = document.getElementById('entrance-text-2');
+        const entranceGlow = document.getElementById('entrance-glow');
+
+        function replayHeroPopUpAnimation() {
+            const elements = [
+                { el: entrancePortrait, cls: 'animate-photo-popup' },
+                { el: entranceText1, cls: 'animate-text-top' },
+                { el: entranceText2, cls: 'animate-text-bottom' },
+                { el: entranceGlow, cls: 'animate-glow-popup' }
+            ];
+            elements.forEach(({ el, cls }) => {
+                if (!el) return;
+                el.classList.remove(cls);
+                void el.offsetWidth; // Force reflow to restart CSS animation
+                el.classList.add(cls);
+            });
+        }
+
+        function processHeroPortraitCutout(img) {
+            const w = img.naturalWidth || img.width;
+            const h = img.naturalHeight || img.height;
+            if (!w || !h) return false;
+
+            try {
+                // Scale down slightly on mobile for super fast flood-fill & localStorage saving
+                const maxDim = 900;
+                const scale = Math.min(1, maxDim / Math.max(w, h));
+                const cw = Math.round(w * scale);
+                const ch = Math.round(h * scale);
+
+                cutoutCanvas.width = cw;
+                cutoutCanvas.height = ch;
+                const ctx = cutoutCanvas.getContext('2d', { willReadFrequently: true });
+                ctx.drawImage(img, 0, 0, cw, ch);
+
+                const imgData = ctx.getImageData(0, 0, cw, ch);
+                const data = imgData.data;
+                const visited = new Uint8Array(cw * ch);
+                const queue = new Int32Array(cw * ch);
+                let head = 0, tail = 0;
+
+                function isExteriorBlack(idx) {
+                    const r = data[idx];
+                    const g = data[idx + 1];
+                    const b = data[idx + 2];
+                    return r < 22 && g < 22 && b < 22;
+                }
+
+                // Seed flood-fill from top, left, and right borders
+                for (let x = 0; x < cw; x++) {
+                    if (isExteriorBlack(x * 4)) {
+                        visited[x] = 1;
+                        queue[tail++] = x;
+                    }
+                }
+                for (let y = 0; y < ch; y++) {
+                    const leftIdx = y * cw;
+                    if (!visited[leftIdx] && isExteriorBlack(leftIdx * 4)) {
+                        visited[leftIdx] = 1;
+                        queue[tail++] = leftIdx;
+                    }
+                    const rightIdx = y * cw + (cw - 1);
+                    if (!visited[rightIdx] && isExteriorBlack(rightIdx * 4)) {
+                        visited[rightIdx] = 1;
+                        queue[tail++] = rightIdx;
+                    }
+                }
+
+                // Flood-fill exterior black background to transparent
+                while (head < tail) {
+                    const curr = queue[head++];
+                    const cx = curr % cw;
+                    const cy = (curr / cw) | 0;
+
+                    data[curr * 4 + 3] = 0;
+
+                    const neighbors = [
+                        cy > 0 ? curr - cw : -1,
+                        cy < ch - 1 ? curr + cw : -1,
+                        cx > 0 ? curr - 1 : -1,
+                        cx < cw - 1 ? curr + 1 : -1
+                    ];
+
+                    for (let i = 0; i < 4; i++) {
+                        const n = neighbors[i];
+                        if (n !== -1 && !visited[n]) {
+                            const pIdx = n * 4;
+                            if (isExteriorBlack(pIdx)) {
+                                visited[n] = 1;
+                                queue[tail++] = n;
+                            } else {
+                                const lum = (data[pIdx] + data[pIdx + 1] + data[pIdx + 2]) / 3;
+                                if (lum < 38) {
+                                    data[pIdx + 3] = Math.min(255, Math.max(65, (lum - 14) * 10));
+                                }
+                            }
+                        }
+                    }
+                }
+
+                ctx.putImageData(imgData, 0, 0);
+
+                // Show processed canvas, hide vector fallback
+                vectorPortrait.classList.add('hidden');
+                directPhoto.classList.add('hidden');
+                cutoutCanvas.classList.remove('hidden');
+                changePhotoBtn.classList.remove('pulse-crimson');
+                photoBtnLabel.textContent = 'Ganti Foto';
+                return true;
+            } catch (err) {
+                // If local file CORS blocks getImageData, still show the image directly!
+                directPhoto.src = img.src;
+                vectorPortrait.classList.add('hidden');
+                cutoutCanvas.classList.add('hidden');
+                directPhoto.classList.remove('hidden');
+                changePhotoBtn.classList.remove('pulse-crimson');
+                photoBtnLabel.textContent = 'Ganti Foto';
+                return true;
+            }
+        }
+
+        function tryLoadPhotoSources(sources, index = 0) {
+            if (index >= sources.length) return;
+            const testImg = new Image();
+            testImg.onload = function () {
+                if (testImg.naturalWidth > 0) {
+                    processHeroPortraitCutout(testImg);
+                    replayHeroPopUpAnimation();
+                } else {
+                    tryLoadPhotoSources(sources, index + 1);
+                }
+            };
+            testImg.onerror = function () {
+                tryLoadPhotoSources(sources, index + 1);
+            };
+            testImg.src = sources[index];
+        }
+
+        // Handle 1-tap photo selection from Android Gallery (saves to localStorage so it stays forever)
+        photoInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+                const dataUrl = ev.target.result;
+                const userImg = new Image();
+                userImg.onload = function () {
+                    processHeroPortraitCutout(userImg);
+                    replayHeroPopUpAnimation();
+                    try {
+                        // Save processed cutout PNG into localStorage so next page load is automatic
+                        const savedPng = cutoutCanvas.toDataURL('image/png');
+                        localStorage.setItem('dbat_hero_portrait_v1', savedPng);
+                    } catch (storageErr) {
+                        // Ignore quota errors
+                    }
+                };
+                userImg.src = dataUrl;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Initial Startup Load Sequence
+        (function initHeroPhoto() {
+            try {
+                const cachedPhoto = localStorage.getItem('dbat_hero_portrait_v1');
+                if (cachedPhoto) {
+                    tryLoadPhotoSources([cachedPhoto, '315408_2.png', '315408.png']);
+                    return;
+                }
+            } catch (e) {}
+            tryLoadPhotoSources(['315408_2.png', '315408.png']);
+        })();
+
+        /* -----------------------------------------------------------
+         * 1. HERO MOUSE PARALLAX EFFECT (Matches 0:02 - 0:09 in video)
+         * ----------------------------------------------------------- */
+        const heroSection = document.getElementById('home');
+        const text1 = document.getElementById('parallax-text-1');
+        const text2 = document.getElementById('parallax-text-2');
+        const portrait = document.getElementById('parallax-portrait');
+
+        heroSection.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            // Top text shifts slightly left/right
+            text1.style.transform = `translate3d(${x * -18}px, ${y * -8}px, 0)`;
+            // Bottom "RAMADHAN" text shifts further in opposite horizontal direction
+            text2.style.transform = `translate3d(${x * 32}px, ${y * 10}px, 0)`;
+            // Foreground portrait has subtle counter-parallax
+            portrait.style.transform = `translate3d(${x * -8}px, ${y * -4}px, 0)`;
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+            text1.style.transform = 'translate3d(0,0,0)';
+            text2.style.transform = 'translate3d(0,0,0)';
+            portrait.style.transform = 'translate3d(0,0,0)';
+        });
+
+        /* -----------------------------------------------------------
+         * 2. CERTIFICATES 3D COVER-FLOW CAROUSEL (Matches 0:31 - 0:40)
+         * ----------------------------------------------------------- */
+        const certificates = [
+            {
+                issuer: 'DICODING INDONESIA',
+                title: 'Belajar Dasar AI',
+                year: '2025',
+                badgeColor: '#1e293b',
+                type: 'dicoding',
+                idCode: 'GRX528901'
+            },
+            {
+                issuer: 'SIMPLILEARN',
+                title: 'Android App Untuk Pemula',
+                year: '2025',
+                badgeColor: '#0284c7',
+                type: 'simplilearn',
+                idCode: 'SL-88341'
+            },
+            {
+                issuer: 'DICODING INDONESIA',
+                title: 'Belajar Dasar Pemrograman JavaScript',
+                year: '2025',
+                badgeColor: '#1e293b',
+                type: 'dicoding',
+                idCode: 'JMZ992104'
+            },
+            {
+                issuer: 'SIMPLILEARN',
+                title: 'Full-Stack Development 101',
+                year: '2025',
+                badgeColor: '#0284c7',
+                type: 'simplilearn',
+                idCode: 'SL-99201'
+            },
+            {
+                issuer: 'SIMPLILEARN',
+                title: 'Getting Started with ReactJS Components',
+                year: '2025',
+                badgeColor: '#0284c7',
+                type: 'simplilearn',
+                idCode: 'SL-77412'
+            },
+            {
+                issuer: 'CISCO',
+                title: 'JavaScript Essentials 1',
+                year: '2026',
+                badgeColor: '#dc2626',
+                type: 'cisco',
+                idCode: 'CSCO-JS1'
+            },
+            {
+                issuer: 'CISCO',
+                title: 'JavaScript Essentials 2',
+                year: '2026',
+                badgeColor: '#dc2626',
+                type: 'cisco',
+                idCode: 'CSCO-JS2'
+            }
+        ];
+
+        let activeCertIndex = 0;
+        const certStage = document.getElementById('cert-stage');
+        const certDotsContainer = document.getElementById('cert-dots');
+
+        function getCertificatePreviewHTML(cert) {
+            if (cert.type === 'dicoding') {
+                return `
+                    <div class="w-full h-52 bg-white rounded-lg p-4 text-slate-800 relative overflow-hidden border border-slate-200 shadow-inner flex flex-col justify-between">
+                        <div class="absolute top-0 right-4 w-10 h-28 bg-[#1e293b] text-white flex flex-col items-center justify-end pb-2 shadow-md">
+                            <div class="w-6 h-6 rounded-full border border-amber-400 flex items-center justify-center text-[8px] text-amber-300">★</div>
+                        </div>
+                        <div>
+                            <p class="font-bold text-xs tracking-tight text-slate-900">dicoding</p>
+                            <span class="inline-block mt-2 px-2 py-0.5 bg-slate-800 text-white text-[7px] font-mono uppercase tracking-widest">SERTIFIKAT KOMPETENSI</span>
+                            <p class="mt-2 text-[9px] text-slate-400">Diberikan kepada</p>
+                            <p class="font-bold text-xs text-amber-700">Dimas Bagus Aditiyas</p>
+                            <p class="text-[9px] font-semibold text-slate-700 mt-1 line-clamp-1">${cert.title}</p>
+                        </div>
+                        <div class="flex items-end justify-between border-t border-slate-100 pt-2">
+                            <span class="text-[7px] text-slate-400 font-mono">ID: ${cert.idCode}</span>
+                            <div class="w-6 h-6 bg-slate-200 rounded-sm grid grid-cols-2 gap-0.5 p-0.5">
+                                <span class="bg-slate-700"></span><span class="bg-slate-400"></span><span class="bg-slate-500"></span><span class="bg-slate-800"></span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (cert.type === 'simplilearn') {
+                return `
+                    <div class="w-full h-52 bg-white rounded-lg p-4 text-slate-800 relative overflow-hidden border border-slate-200 shadow-inner flex flex-col justify-between">
+                        <div class="absolute top-0 right-0 w-14 h-full bg-gradient-to-b from-sky-600 to-blue-900 opacity-90"></div>
+                        <div class="relative z-10 pr-12">
+                            <p class="font-bold text-[10px] text-sky-600">simplilearn <span class="text-amber-500 font-extrabold">SkillUp</span></p>
+                            <p class="text-[10px] font-extrabold tracking-wider text-slate-700 mt-2 uppercase">CERTIFICATE OF COMPLETION</p>
+                            <p class="text-[8px] text-slate-400 mt-1">Congratulations</p>
+                            <p class="font-bold text-xs text-slate-900 mt-0.5">Dimas Bagus Aditiyas</p>
+                            <p class="text-[9px] text-slate-600 mt-1 font-medium line-clamp-2">${cert.title}</p>
+                        </div>
+                        <div class="relative z-10 flex items-center justify-between text-[7px] text-slate-400 pt-2 border-t border-slate-100 pr-12">
+                            <span>${cert.year}</span>
+                            <span>Code: ${cert.idCode}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="w-full h-52 bg-white rounded-lg p-4 text-slate-800 relative overflow-hidden border-t-4 border-crimson shadow-inner flex flex-col justify-between">
+                        <div class="text-center mt-1">
+                            <p class="text-[9px] font-bold tracking-widest text-crimson uppercase">CISCO Networking Academy</p>
+                            <p class="font-extrabold text-sm text-slate-900 mt-2">Dimas Bagus Aditiyas</p>
+                            <p class="text-[8px] text-slate-400 mt-0.5">has successfully achieved student level credential for</p>
+                            <p class="font-bold text-xs text-slate-800 mt-1.5">${cert.title}</p>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-slate-100 pt-2 text-[8px] text-slate-400">
+                            <span>Cisco NetAcad</span>
+                            <span class="font-mono text-crimson font-bold">${cert.year}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderCertificates() {
+            certStage.innerHTML = '';
+            certDotsContainer.innerHTML = '';
+
+            certificates.forEach((cert, index) => {
+                const offset = index - activeCertIndex;
+                const absOffset = Math.abs(offset);
+
+                const card = document.createElement('div');
+                card.className = `cert-card ${offset === 0 ? 'active' : ''}`;
+
+                // Calculate 3D Coverflow Position
+                const translateX = offset * 290;
+                const scale = offset === 0 ? 1 : Math.max(0.78, 1 - absOffset * 0.13);
+                const rotateY = offset === 0 ? 0 : (offset > 0 ? -18 : 18);
+                const opacity = absOffset > 2 ? 0 : (offset === 0 ? 1 : Math.max(0.25, 0.65 - (absOffset - 1) * 0.3));
+                const zIndex = 20 - absOffset;
+
+                card.style.transform = `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`;
+                card.style.opacity = opacity;
+                card.style.zIndex = zIndex;
+                card.style.pointerEvents = absOffset > 2 ? 'none' : 'auto';
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-[9px] tracking-[0.22em] text-white/40 uppercase">${cert.issuer}</span>
+                            <span class="w-2 h-2 rounded-full ${offset === 0 ? 'bg-crimson shadow-[0_0_8px_#e50914]' : 'bg-white/15'}"></span>
+                        </div>
+                        ${getCertificatePreviewHTML(cert)}
+                    </div>
+                    <div class="pt-4 border-t border-white/10">
+                        <h4 class="font-bold text-sm sm:text-base text-white line-clamp-1">${cert.title}</h4>
+                        <p class="font-mono text-[10px] text-crimson mt-1">${cert.year}</p>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => {
+                    activeCertIndex = index;
+                    renderCertificates();
+                });
+
+                certStage.appendChild(card);
+
+                // Pagination dot
+                const dot = document.createElement('button');
+                dot.setAttribute('aria-label', `Certificate ${index + 1}`);
+                dot.className = `h-1.5 rounded-full transition-all duration-300 ${
+                    offset === 0 ? 'w-8 bg-crimson shadow-[0_0_10px_#e50914]' : 'w-2 bg-white/20 hover:bg-white/40'
+                }`;
+                dot.addEventListener('click', () => {
+                    activeCertIndex = index;
+                    renderCertificates();
+                });
+                certDotsContainer.appendChild(dot);
+            });
+        }
+
+        // Touch / Drag support for Certificate Carousel
+        let startX = 0;
+        certStage.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        certStage.addEventListener('touchend', (e) => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) {
+                if (diff > 0 && activeCertIndex < certificates.length - 1) {
+                    activeCertIndex++;
+                } else if (diff < 0 && activeCertIndex > 0) {
+                    activeCertIndex--;
+                }
+                renderCertificates();
+            }
+        });
+
+        renderCertificates();
+
+        /* -----------------------------------------------------------
+         * 3. REAL-TIME WIB DIGITAL CLOCK (UTC+7)
+         * ----------------------------------------------------------- */
+        const clockEl = document.getElementById('wib-clock');
+        function updateWIBClock() {
+            const now = new Date();
+            const formatter = new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Asia/Jakarta',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            clockEl.textContent = formatter.format(now);
+        }
+        updateWIBClock();
+        setInterval(updateWIBClock, 1000);
+
+        /* -----------------------------------------------------------
+         * 4. SCROLL-TO-TOP CURTAIN WIPE TRANSITION (Matches 0:46 in video)
+         * ----------------------------------------------------------- */
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+        const pageCurtain = document.getElementById('page-curtain');
+
+        scrollTopBtn.addEventListener('click', () => {
+            pageCurtain.classList.remove('translate-y-full');
+            pageCurtain.classList.add('translate-y-0');
+
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+                pageCurtain.classList.remove('translate-y-0');
+                pageCurtain.classList.add('-translate-y-full');
+                // Replay the hero photo & text pop-up animation when returning to the top
+                replayHeroPopUpAnimation();
+
+                setTimeout(() => {
+                    pageCurtain.classList.remove('duration-700');
+                    pageCurtain.classList.remove('-translate-y-full');
+                    pageCurtain.classList.add('translate-y-full');
+                    setTimeout(() => pageCurtain.classList.add('duration-700'), 50);
+                }, 700);
+            }, 520);
+        });
+
+        /* -----------------------------------------------------------
+         * 5. LOAD MORE PROJECTS & CASE MODAL & CLIPBOARD
+         * ----------------------------------------------------------- */
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const loadMoreText = document.getElementById('load-more-text');
+        const moreProjects = document.getElementById('more-projects');
+        let expandedProjects = false;
+
+        loadMoreBtn.addEventListener('click', () => {
+            expandedProjects = !expandedProjects;
+            if (expandedProjects) {
+                moreProjects.classList.remove('hidden');
+                moreProjects.classList.add('grid');
+                loadMoreText.textContent = 'SHOW LESS ARCHIVE';
+            } else {
+                moreProjects.classList.add('hidden');
+                moreProjects.classList.remove('grid');
+                loadMoreText.textContent = 'LOAD MORE EXPERIENCE';
+            }
+        });
+
+        // Case Study Modal
+        const caseModal = document.getElementById('case-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        function openProjectModal(title, desc) {
+            modalTitle.textContent = title;
+            modalDesc.textContent = desc;
+            caseModal.classList.remove('hidden');
+            caseModal.classList.add('flex');
+        }
+
+        function closeProjectModal() {
+            caseModal.classList.add('hidden');
+            caseModal.classList.remove('flex');
+        }
+
+        closeModalBtn.addEventListener('click', closeProjectModal);
+        caseModal.addEventListener('click', (e) => {
+            if (e.target === caseModal) closeProjectModal();
+        });
+
+        // Download CV Simulation
+        document.getElementById('download-cv-btn').addEventListener('click', () => {
+            openProjectModal(
+                'CURRICULUM VITAE — DIMAS BAGUS ADITIYAS',
+                'Full-Stack Developer specializing in React, Next.js, Laravel, and Flutter. Based in Jonggol, West Java. Ready for full-time roles, internships, and remote freelance projects.'
+            );
+        });
+
+        // Copy Email to Clipboard
+        const copyEmailBtn = document.getElementById('copy-email-btn');
+        const copyFeedback = document.getElementById('copy-feedback');
+        copyEmailBtn.addEventListener('click', () => {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = 'muhammadfajrirmdhn27@gmail.com';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            copyFeedback.classList.remove('hidden');
+            setTimeout(() => copyFeedback.classList.add('hidden'), 3000);
+        });
+
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
